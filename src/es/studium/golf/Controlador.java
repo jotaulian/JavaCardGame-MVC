@@ -145,6 +145,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 == 2)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 		} else if ((x >= 531) && (x <= 612) && (y >= 50) && (y <= 161) && turno == 1 && cartasBocaArribaJ1 < 2)
 		{
@@ -154,6 +155,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 == 2)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 		} else if ((x >= 622) && (x <= 703) && (y >= 50) && (y <= 161) && turno == 1 && cartasBocaArribaJ1 < 2)
 		{
@@ -163,6 +165,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 == 2)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 		} else if ((x >= 440) && (x <= 521) && (y >= 173) && (y <= 284) && turno == 1 && cartasBocaArribaJ1 < 2)
 		{
@@ -172,6 +175,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 == 2)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 		} else if ((x >= 531) && (x <= 612) && (y >= 173) && (y <= 284) && turno == 1 && cartasBocaArribaJ1 < 2)
 		{
@@ -181,6 +185,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 == 2)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 		} else if ((x >= 622) && (x <= 703) && (y >= 173) && (y <= 284) && turno == 1 && cartasBocaArribaJ1 < 2)
 		{
@@ -190,6 +195,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 == 2)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 		}
 
@@ -202,6 +208,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 == 2)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 		} else if ((x >= 531) && (x <= 612) && (y >= 530) && (y <= 641) && turno == 2 && cartasBocaArribaJ2 < 2)
 		{
@@ -211,6 +218,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 == 2)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 		} else if ((x >= 622) && (x <= 703) && (y >= 530) && (y <= 641) && turno == 2 && cartasBocaArribaJ2 < 2)
 		{
@@ -220,6 +228,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 == 2)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 		} else if ((x >= 440) && (x <= 521) && (y >= 653) && (y <= 764) && turno == 2 && cartasBocaArribaJ2 < 2)
 		{
@@ -229,6 +238,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 == 2)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 		} else if ((x >= 531) && (x <= 612) && (y >= 653) && (y <= 764) && turno == 2 && cartasBocaArribaJ2 < 2)
 		{
@@ -238,6 +248,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 == 2)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 		} else if ((x >= 622) && (x <= 703) && (y >= 653) && (y <= 764) && turno == 2 && cartasBocaArribaJ2 < 2)
 		{
@@ -247,6 +258,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 == 2)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 		}
 
@@ -283,6 +295,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 			if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
@@ -299,6 +312,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 			if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
@@ -315,6 +329,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 			if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
@@ -331,6 +346,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 			if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
@@ -347,6 +363,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 			if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
@@ -363,6 +380,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 			if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
@@ -382,6 +400,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;
@@ -398,6 +417,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;
@@ -414,6 +434,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;
@@ -430,6 +451,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;
@@ -446,6 +468,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;
@@ -462,6 +485,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;
@@ -483,6 +507,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 			else if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
@@ -501,6 +526,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 			else if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
@@ -519,6 +545,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 			else if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
@@ -537,6 +564,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 			else if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
@@ -555,6 +583,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}else if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
 			}
@@ -572,6 +601,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}else if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
 			}
@@ -592,6 +622,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;
@@ -610,6 +641,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;
@@ -628,6 +660,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;
@@ -646,6 +679,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;
@@ -664,6 +698,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;
@@ -682,6 +717,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6)
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;
@@ -699,6 +735,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(2);
 			}
 			else if(cartasBocaArribaJ2 == 6) {
 				darVueltaTodo = true;
@@ -714,6 +751,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ1 < 6) 
 			{
 				turno = 1;
+				this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			}
 			else if(cartasBocaArribaJ1 == 6) {
 				darVueltaTodo = true;

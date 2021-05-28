@@ -49,6 +49,11 @@ public class VistaJuego extends Frame
 	int posXCartasCentro = 531;
 	int posXCartasDerecha = 622;
 	
+	int posXTurno = 280;
+	int posYTurno = 85;
+	int posXTurnoLetra = 295;
+	int posYTurnoLetra = 100;
+	
 	//Nombres de los Jugadores
 	String nombreJug1 = "";
 	String nombreJug2 = "";
@@ -96,6 +101,15 @@ public class VistaJuego extends Frame
 		g.setFont(fuente);
 		g.drawString(nombreJug1, 285, 70); 
 		g.drawString(nombreJug2, 780, 765);
+		//Dibujamos recuadro que indica el turno:
+		Color colorTurno = new Color(85,255,66,250);
+		g.setColor(colorTurno);
+		g.fillRect(posXTurno, posYTurno, 110, 18);
+		g.setColor(Color.black);
+		g.drawRect(posXTurno, posYTurno, 110, 18);
+		Font fuenteTurno = new Font("Segoe UI", Font.BOLD, 15);
+		g.setFont(fuenteTurno);
+		g.drawString("Tu Turno", posXTurnoLetra, posYTurnoLetra);
 		
 		//Para dibujar las cartas que cambian de valor usaremos bucles 'switch'. 
 		//Un bucle por cada carta a mostrar --> Mazo descarte + Carta temporal + (6 x jugador) --> 14.
@@ -2515,6 +2529,23 @@ public class VistaJuego extends Frame
 	{
 		puntosJugador1 = 0;
 		puntosJugador2 = 0;
+		repaint();
+	}
+	
+	//Método Posición Cartel que indica Turno toma 1 o 2: si es uno hace tal si es 2 hace cual
+	public void cambiarPosicionRecuadroTurno(int turno) {
+		if(turno == 1) {
+			posXTurno = 280;
+			posYTurno = 85;
+			posXTurnoLetra = 295;
+			posYTurnoLetra = 100;
+		}
+		else if(turno == 2) {
+			posXTurno = 775;
+			posYTurno = 722;
+			posXTurnoLetra = 790;
+			posYTurnoLetra = 737;
+		}
 		repaint();
 	}
 }
