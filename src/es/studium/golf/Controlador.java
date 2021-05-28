@@ -33,6 +33,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 	int descarte;
 	int cartasBocaArribaJ1;
 	int cartasBocaArribaJ2;
+	boolean darVueltaTodo = false;
 
 	public Controlador(VistaInicio vi, VistaJuego vj, Modelo m)
 	{
@@ -134,8 +135,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 		int x = e.getX();
 		int y = e.getY();
 
-		// Dar Vuelta las primeras dos cartas si es el turno del jugador y hay menos de
-		// 2 cartas dadas vueltas
+		// Dar Vuelta las primeras dos cartas si es el turno del jugador y hay menos de 2 cartas dadas vueltas
 		// Dar vuelta cartas jugador 1
 		if ((x >= 440) && (x <= 521) && (y >= 50) && (y <= 161) && turno == 1 && cartasBocaArribaJ1 < 2)
 		{
@@ -251,7 +251,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 		}
 
 		// Click en el mazo
-		else if ((x >= 590) && (x <= 671) && (y >= 350) && (y <= 461) && isCartaTemporalActive == false)
+		else if ((x >= 590) && (x <= 671) && (y >= 350) && (y <= 461) && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			if (mazo.size() > 1)
 			{
@@ -271,7 +271,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 		}
 
 		// Intercambio entre Cartas Jugador 1 y Mazo Descarte:
-		else if ((x >= 440) && (x <= 521) && (y >= 50) && (y <= 161) && turno == 1 && isCartaTemporalActive == false)
+		else if ((x >= 440) && (x <= 521) && (y >= 50) && (y <= 161) && turno == 1 && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			int auxiliar = cartasJ1.get(0);
 			cartasJ1.set(0, descarte);
@@ -284,7 +284,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 2;
 			}
-		} else if ((x >= 531) && (x <= 612) && (y >= 50) && (y <= 161) && turno == 1 && isCartaTemporalActive == false)
+			if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 531) && (x <= 612) && (y >= 50) && (y <= 161) && turno == 1 && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			int auxiliar = cartasJ1.get(1);
 			cartasJ1.set(1, descarte);
@@ -297,7 +300,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 2;
 			}
-		} else if ((x >= 622) && (x <= 703) && (y >= 50) && (y <= 161) && turno == 1 && isCartaTemporalActive == false)
+			if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 622) && (x <= 703) && (y >= 50) && (y <= 161) && turno == 1 && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			int auxiliar = cartasJ1.get(2);
 			cartasJ1.set(2, descarte);
@@ -310,7 +316,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 2;
 			}
-		} else if ((x >= 440) && (x <= 521) && (y >= 173) && (y <= 284) && turno == 1 && isCartaTemporalActive == false)
+			if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 440) && (x <= 521) && (y >= 173) && (y <= 284) && turno == 1 && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			int auxiliar = cartasJ1.get(3);
 			cartasJ1.set(3, descarte);
@@ -323,7 +332,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 2;
 			}
-		} else if ((x >= 531) && (x <= 612) && (y >= 173) && (y <= 284) && turno == 1 && isCartaTemporalActive == false)
+			if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 531) && (x <= 612) && (y >= 173) && (y <= 284) && turno == 1 && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			int auxiliar = cartasJ1.get(4);
 			cartasJ1.set(4, descarte);
@@ -336,7 +348,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 2;
 			}
-		} else if ((x >= 622) && (x <= 703) && (y >= 173) && (y <= 284) && turno == 1 && isCartaTemporalActive == false)
+			if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 622) && (x <= 703) && (y >= 173) && (y <= 284) && turno == 1 && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			int auxiliar = cartasJ1.get(5);
 			cartasJ1.set(5, descarte);
@@ -349,10 +364,13 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 2;
 			}
+			if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
+			}
 		}
 
 		// Intercambio entre Cartas Jugador 2 y Mazo Descarte
-		else if ((x >= 440) && (x <= 521) && (y >= 530) && (y <= 641) && turno == 2 && isCartaTemporalActive == false)
+		else if ((x >= 440) && (x <= 521) && (y >= 530) && (y <= 641) && turno == 2 && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			int auxiliar = cartasJ2.get(0);
 			cartasJ2.set(0, descarte);
@@ -365,7 +383,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 1;
 			}
-		} else if ((x >= 531) && (x <= 612) && (y >= 530) && (y <= 641) && turno == 2 && isCartaTemporalActive == false)
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 531) && (x <= 612) && (y >= 530) && (y <= 641) && turno == 2 && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			int auxiliar = cartasJ2.get(1);
 			cartasJ2.set(1, descarte);
@@ -378,7 +399,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 1;
 			}
-		} else if ((x >= 622) && (x <= 703) && (y >= 530) && (y <= 641) && turno == 2 && isCartaTemporalActive == false)
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 622) && (x <= 703) && (y >= 530) && (y <= 641) && turno == 2 && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			int auxiliar = cartasJ2.get(2);
 			cartasJ2.set(2, descarte);
@@ -391,7 +415,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 1;
 			}
-		} else if ((x >= 440) && (x <= 521) && (y >= 653) && (y <= 764) && turno == 2 && isCartaTemporalActive == false)
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 440) && (x <= 521) && (y >= 653) && (y <= 764) && turno == 2 && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			int auxiliar = cartasJ2.get(3);
 			cartasJ2.set(3, descarte);
@@ -404,7 +431,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 1;
 			}
-		} else if ((x >= 531) && (x <= 612) && (y >= 653) && (y <= 764) && turno == 2 && isCartaTemporalActive == false)
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 531) && (x <= 612) && (y >= 653) && (y <= 764) && turno == 2 && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			int auxiliar = cartasJ2.get(4);
 			cartasJ2.set(4, descarte);
@@ -417,7 +447,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 1;
 			}
-		} else if ((x >= 622) && (x <= 703) && (y >= 653) && (y <= 764) && turno == 2 && isCartaTemporalActive == false)
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 622) && (x <= 703) && (y >= 653) && (y <= 764) && turno == 2 && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
 			int auxiliar = cartasJ2.get(5);
 			cartasJ2.set(5, descarte);
@@ -430,10 +463,13 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 1;
 			}
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
 		}
 
 		// Intercambio entre Carta Temporal y Carta seleccionada J1
-		else if ((x >= 440) && (x <= 521) && (y >= 50) && (y <= 161) && turno == 1 && isCartaTemporalActive == true)
+		else if ((x >= 440) && (x <= 521) && (y >= 50) && (y <= 161) && turno == 1 && isCartaTemporalActive == true && darVueltaTodo == false)
 		{
 			descarte = cartasJ1.get(0);
 			cartasJ1.set(0, cartaTemporal);
@@ -448,7 +484,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 2;
 			}
-		} else if ((x >= 531) && (x <= 612) && (y >= 50) && (y <= 161) && turno == 1 && isCartaTemporalActive == true)
+			else if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 531) && (x <= 612) && (y >= 50) && (y <= 161) && turno == 1 && isCartaTemporalActive == true && darVueltaTodo == false)
 		{
 			descarte = cartasJ1.get(1);
 			cartasJ1.set(1, cartaTemporal);
@@ -463,7 +502,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 2;
 			}
-		} else if ((x >= 622) && (x <= 703) && (y >= 50) && (y <= 161) && turno == 1 && isCartaTemporalActive == true)
+			else if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 622) && (x <= 703) && (y >= 50) && (y <= 161) && turno == 1 && isCartaTemporalActive == true && darVueltaTodo == false)
 		{
 			descarte = cartasJ1.get(2);
 			cartasJ1.set(2, cartaTemporal);
@@ -478,7 +520,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 2;
 			}
-		} else if ((x >= 440) && (x <= 521) && (y >= 173) && (y <= 284) && turno == 1 && isCartaTemporalActive == true)
+			else if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 440) && (x <= 521) && (y >= 173) && (y <= 284) && turno == 1 && isCartaTemporalActive == true && darVueltaTodo == false)
 		{
 			descarte = cartasJ1.get(3);
 			cartasJ1.set(3, cartaTemporal);
@@ -493,7 +538,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 2;
 			}
-		} else if ((x >= 531) && (x <= 612) && (y >= 173) && (y <= 284) && turno == 1 && isCartaTemporalActive == true)
+			else if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 531) && (x <= 612) && (y >= 173) && (y <= 284) && turno == 1 && isCartaTemporalActive == true && darVueltaTodo == false)
 		{
 			descarte = cartasJ1.get(4);
 			cartasJ1.set(4, cartaTemporal);
@@ -507,8 +555,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+			}else if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
 			}
-		} else if ((x >= 622) && (x <= 703) && (y >= 173) && (y <= 284) && turno == 1 && isCartaTemporalActive == true)
+		} else if ((x >= 622) && (x <= 703) && (y >= 173) && (y <= 284) && turno == 1 && isCartaTemporalActive == true && darVueltaTodo == false)
 		{
 			descarte = cartasJ1.get(5);
 			cartasJ1.set(5, cartaTemporal);
@@ -522,11 +572,13 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			if (cartasBocaArribaJ2 < 6)
 			{
 				turno = 2;
+			}else if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
 			}
 		}
 
 		// Intercambio entre Carta Temporal y Carta seleccionada J2
-		else if ((x >= 440) && (x <= 521) && (y >= 530) && (y <= 641) && turno == 2 && isCartaTemporalActive == true)
+		else if ((x >= 440) && (x <= 521) && (y >= 530) && (y <= 641) && turno == 2 && isCartaTemporalActive == true && darVueltaTodo == false)
 		{
 			descarte = cartasJ2.get(0);
 			cartasJ2.set(0, cartaTemporal);
@@ -541,7 +593,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 1;
 			}
-		} else if ((x >= 531) && (x <= 612) && (y >= 530) && (y <= 641) && turno == 2 && isCartaTemporalActive == true)
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 531) && (x <= 612) && (y >= 530) && (y <= 641) && turno == 2 && isCartaTemporalActive == true && darVueltaTodo == false)
 		{
 			descarte = cartasJ2.get(1);
 			cartasJ2.set(1, cartaTemporal);
@@ -556,7 +611,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 1;
 			}
-		} else if ((x >= 622) && (x <= 703) && (y >= 530) && (y <= 641) && turno == 2 && isCartaTemporalActive == true)
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 622) && (x <= 703) && (y >= 530) && (y <= 641) && turno == 2 && isCartaTemporalActive == true && darVueltaTodo == false)
 		{
 			descarte = cartasJ2.get(2);
 			cartasJ2.set(2, cartaTemporal);
@@ -571,7 +629,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 1;
 			}
-		} else if ((x >= 440) && (x <= 521) && (y >= 653) && (y <= 764) && turno == 2 && isCartaTemporalActive == true)
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 440) && (x <= 521) && (y >= 653) && (y <= 764) && turno == 2 && isCartaTemporalActive == true && darVueltaTodo == false)
 		{
 			descarte = cartasJ2.get(3);
 			cartasJ2.set(3, cartaTemporal);
@@ -586,7 +647,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 1;
 			}
-		} else if ((x >= 531) && (x <= 612) && (y >= 653) && (y <= 764) && turno == 2 && isCartaTemporalActive == true)
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 531) && (x <= 612) && (y >= 653) && (y <= 764) && turno == 2 && isCartaTemporalActive == true && darVueltaTodo == false)
 		{
 			descarte = cartasJ2.get(4);
 			cartasJ2.set(4, cartaTemporal);
@@ -601,7 +665,10 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 1;
 			}
-		} else if ((x >= 622) && (x <= 703) && (y >= 653) && (y <= 764) && turno == 2 && isCartaTemporalActive == true)
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
+		} else if ((x >= 622) && (x <= 703) && (y >= 653) && (y <= 764) && turno == 2 && isCartaTemporalActive == true && darVueltaTodo == false)
 		{
 			descarte = cartasJ2.get(5);
 			cartasJ2.set(5, cartaTemporal);
@@ -616,10 +683,118 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				turno = 1;
 			}
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
 		}
 		
 		//Descartar Carta Temporal
+		else if((x >= 497) && (x <= 578) && (y >= 350) && (y <= 461) && turno == 1 && isCartaTemporalActive == true && darVueltaTodo == false) 
+		{
+			descarte = cartaTemporal;
+			cartaTemporal = 0;
+			isCartaTemporalActive = false;
+			this.vistaJuego.mostrarCartaDescarte(descarte);
+			this.vistaJuego.mostrarCartaTemporal(cartaTemporal);
+			if (cartasBocaArribaJ2 < 6)
+			{
+				turno = 2;
+			}
+			else if(cartasBocaArribaJ2 == 6) {
+				darVueltaTodo = true;
+			}
+		}
+		else if((x >= 497) && (x <= 578) && (y >= 350) && (y <= 461) && turno == 2 && isCartaTemporalActive == true && darVueltaTodo == false) 
+		{
+			descarte = cartaTemporal;
+			cartaTemporal = 0;
+			isCartaTemporalActive = false;
+			this.vistaJuego.mostrarCartaDescarte(descarte);
+			this.vistaJuego.mostrarCartaTemporal(cartaTemporal);
+			if (cartasBocaArribaJ1 < 6) 
+			{
+				turno = 1;
+			}
+			else if(cartasBocaArribaJ1 == 6) {
+				darVueltaTodo = true;
+			}
+		}
 		
+		//Si la variable darVueltaTodo es verdadera, al hacer click en una carta se revela su valor:
+		//Dar vuelta cartas Jugador 1:
+		else if ((x >= 440) && (x <= 521) && (y >= 50) && (y <= 161) && darVueltaTodo == true)
+		{
+			this.vistaJuego.mostrarCartaJug1Pos00(cartasJ1.get(0));
+			estanCartasJ1BocaArriba[0] = true;
+			cartasBocaArribaJ1 = this.modelo.actualizarCartasBocaArriba(estanCartasJ1BocaArriba);
+		}
+		else if ((x >= 531) && (x <= 612) && (y >= 50) && (y <= 161) && darVueltaTodo == true)
+		{
+			this.vistaJuego.mostrarCartaJug1Pos01(cartasJ1.get(1));
+			estanCartasJ1BocaArriba[1] = true;
+			cartasBocaArribaJ1 = this.modelo.actualizarCartasBocaArriba(estanCartasJ1BocaArriba);
+		}
+		else if ((x >= 622) && (x <= 703) && (y >= 50) && (y <= 161) && darVueltaTodo == true)
+		{
+			this.vistaJuego.mostrarCartaJug1Pos02(cartasJ1.get(2));
+			estanCartasJ1BocaArriba[2] = true;
+			cartasBocaArribaJ1 = this.modelo.actualizarCartasBocaArriba(estanCartasJ1BocaArriba);
+		}
+		else if ((x >= 440) && (x <= 521) && (y >= 173) && (y <= 284) && darVueltaTodo == true)
+		{
+			this.vistaJuego.mostrarCartaJug1Pos10(cartasJ1.get(3));
+			estanCartasJ1BocaArriba[3] = true;
+			cartasBocaArribaJ1 = this.modelo.actualizarCartasBocaArriba(estanCartasJ1BocaArriba);
+		}
+		else if ((x >= 531) && (x <= 612) && (y >= 173) && (y <= 284) && darVueltaTodo == true)
+		{
+			this.vistaJuego.mostrarCartaJug1Pos11(cartasJ1.get(4));
+			estanCartasJ1BocaArriba[4] = true;
+			cartasBocaArribaJ1 = this.modelo.actualizarCartasBocaArriba(estanCartasJ1BocaArriba);
+		}
+		else if ((x >= 622) && (x <= 703) && (y >= 173) && (y <= 284) && darVueltaTodo == true)
+		{
+			this.vistaJuego.mostrarCartaJug1Pos12(cartasJ1.get(5));
+			estanCartasJ1BocaArriba[5] = true;
+			cartasBocaArribaJ1 = this.modelo.actualizarCartasBocaArriba(estanCartasJ1BocaArriba);
+		}
+		//Dar vuelta cartas Jugador 2:
+		else if ((x >= 440) && (x <= 521) && (y >= 530) && (y <= 641) && darVueltaTodo == true)
+		{
+			this.vistaJuego.mostrarCartaJug2Pos00(cartasJ2.get(0));
+			estanCartasJ2BocaArriba[0] = true;
+			cartasBocaArribaJ2 = this.modelo.actualizarCartasBocaArriba(estanCartasJ2BocaArriba);
+		}
+		else if ((x >= 531) && (x <= 612) && (y >= 530) && (y <= 641) && darVueltaTodo == true)
+		{
+			this.vistaJuego.mostrarCartaJug2Pos01(cartasJ2.get(1));
+			estanCartasJ2BocaArriba[1] = true;
+			cartasBocaArribaJ2 = this.modelo.actualizarCartasBocaArriba(estanCartasJ2BocaArriba);
+		}
+		else if ((x >= 622) && (x <= 703) && (y >= 530) && (y <= 641) && darVueltaTodo == true)
+		{
+			this.vistaJuego.mostrarCartaJug2Pos02(cartasJ2.get(2));
+			estanCartasJ2BocaArriba[2] = true;
+			cartasBocaArribaJ2 = this.modelo.actualizarCartasBocaArriba(estanCartasJ2BocaArriba);
+		}
+		else if ((x >= 440) && (x <= 521) && (y >= 653) && (y <= 764) && darVueltaTodo == true)
+		{
+			this.vistaJuego.mostrarCartaJug2Pos10(cartasJ2.get(3));
+			estanCartasJ2BocaArriba[3] = true;
+			cartasBocaArribaJ2 = this.modelo.actualizarCartasBocaArriba(estanCartasJ2BocaArriba);
+		}
+		else if ((x >= 531) && (x <= 612) && (y >= 653) && (y <= 764) && darVueltaTodo == true)
+		{
+			this.vistaJuego.mostrarCartaJug2Pos11(cartasJ2.get(4));
+			estanCartasJ2BocaArriba[4] = true;
+			cartasBocaArribaJ2 = this.modelo.actualizarCartasBocaArriba(estanCartasJ2BocaArriba);
+		}
+		else if ((x >= 622) && (x <= 703) && (y >= 653) && (y <= 764) && darVueltaTodo == true)
+		{
+			this.vistaJuego.mostrarCartaJug2Pos12(cartasJ2.get(5));
+			estanCartasJ2BocaArriba[5] = true;
+			cartasBocaArribaJ2 = this.modelo.actualizarCartasBocaArriba(estanCartasJ2BocaArriba);
+		}
 		
 		//Si todas las cartas estan boca arriba, calculamos el puntaje de la partida y mostramos un dialogo:
 		if(cartasBocaArribaJ1 == 6 & cartasBocaArribaJ2 == 6)

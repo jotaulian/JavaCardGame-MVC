@@ -80,19 +80,19 @@ public class Modelo
 	public int totalJugador(ArrayList<Integer> cartasJugador) {
 		int a, b, c;
 		// A
-		if(cartasJugador.get(0) == cartasJugador.get(3)) {
+		if(valor(cartasJugador.get(0)) == valor(cartasJugador.get(3))) {
 			a = 0;
 		}else {
 			a = (valor(cartasJugador.get(0)) + valor(cartasJugador.get(3)));
 		}
 		//B
-		if(cartasJugador.get(1) == cartasJugador.get(4)) {
+		if(valor(cartasJugador.get(1)) == valor(cartasJugador.get(4))) {
 			b = 0;
 		}else {
 			b = (valor(cartasJugador.get(1)) + valor(cartasJugador.get(4)));
 		}
 		//C
-		if(cartasJugador.get(2) == cartasJugador.get(5)) {
+		if(valor(cartasJugador.get(2)) == valor(cartasJugador.get(5))) {
 			c = 0;
 		}else {
 			c = (valor(cartasJugador.get(2)) + valor(cartasJugador.get(5)));
@@ -137,10 +137,10 @@ public class Modelo
 			valor = 10;
 			break;
 		case 11:
-			valor = 10;
+			valor = 11;
 			break;
 		case 12:
-			valor = 10;
+			valor = 12;
 			break;
 		case 13:
 			valor = 0;
@@ -176,10 +176,10 @@ public class Modelo
 			valor = 10;
 			break;
 		case 24:
-			valor = 10;
+			valor = 11;
 			break;
 		case 25:
-			valor = 10;
+			valor = 12;
 			break;
 		case 26:
 			valor = 0;
@@ -215,10 +215,10 @@ public class Modelo
 			valor = 10;
 			break;
 		case 37:
-			valor = 10;
+			valor = 11;
 			break;
 		case 38:
-			valor = 10;
+			valor = 12;
 			break;
 		case 39:
 			valor = 0;
@@ -254,10 +254,10 @@ public class Modelo
 			valor = 10;
 			break;
 		case 50:
-			valor = 10;
+			valor = 11;
 			break;
 		case 51:
-			valor = 10;
+			valor = 12;
 			break;
 		case 52:
 			valor = 0;
