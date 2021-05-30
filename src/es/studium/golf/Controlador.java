@@ -58,6 +58,8 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 		// Listeners VistaJuego
 		this.vistaJuego.addMouseListener(this);
 		this.vistaJuego.addWindowListener(this);
+		this.vistaJuego.dlgMensaje.addWindowListener(this);
+		this.vistaJuego.btnContinuar.addActionListener(this);
 
 		// Barajamos el mazo
 		this.modelo.barajar(mazo);
@@ -123,6 +125,59 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 				this.vistaJuego.nombreJug1 = this.vistaInicio.txtJugador1.getText();
 				this.vistaJuego.nombreJug2 = this.vistaInicio.txtJugador2.getText();
 			}
+		}
+		else if(this.vistaJuego.btnContinuar.equals(evento.getSource())) 
+		{
+			this.vistaJuego.setPuntosJugador1(this.modelo.totalJugador(cartasJ1));
+		 	this.vistaJuego.setPuntosJugador2(this.modelo.totalJugador(cartasJ2));
+			this.modelo.barajar(mazo);
+			this.modelo.repartir(mazo, cartasJ1, cartasJ2);
+			descarte = this.modelo.agregarDescarte(mazo, descarte);
+			this.vistaJuego.mostrarCartaDescarte(descarte);
+			turno = 1;
+			isCartaTemporalActive = false;
+			cartaTemporal = 0;
+			for (int i = 0; i < estanCartasJ1BocaArriba.length; i++) 
+			{
+				estanCartasJ1BocaArriba[i] = false;
+			}
+			cartasBocaArribaJ1 = 0;
+			System.out.println("Cantidad cartas boca arriba J1: "+cartasBocaArribaJ1);
+			for (int i = 0; i < estanCartasJ2BocaArriba.length; i++) 
+			{
+				estanCartasJ2BocaArriba[i] = false;
+			}
+			cartasBocaArribaJ2 = 0;
+			darVueltaTodo = false;
+			//Mostramos el reverso de las cartas
+			this.vistaJuego.mostrarCartaJug1Pos00(0);
+			this.vistaJuego.mostrarCartaJug1Pos01(0);
+			this.vistaJuego.mostrarCartaJug1Pos02(0);
+			this.vistaJuego.mostrarCartaJug1Pos10(0);
+			this.vistaJuego.mostrarCartaJug1Pos11(0);
+			this.vistaJuego.mostrarCartaJug1Pos12(0);
+			this.vistaJuego.mostrarCartaJug2Pos00(0);
+			this.vistaJuego.mostrarCartaJug2Pos01(0);
+			this.vistaJuego.mostrarCartaJug2Pos02(0);
+			this.vistaJuego.mostrarCartaJug2Pos10(0);
+			this.vistaJuego.mostrarCartaJug2Pos11(0);
+			this.vistaJuego.mostrarCartaJug2Pos12(0);
+			//Modificamos el número del Hoyo
+			if(this.vistaJuego.hoyoNumero == 1) 
+			{
+				this.vistaJuego.setNumeroHoyo(2);
+			}
+			else if(this.vistaJuego.hoyoNumero == 2) 
+			{
+				this.vistaJuego.setNumeroHoyo(3);
+			}
+			else if(this.vistaJuego.hoyoNumero == 3)
+			{
+				this.vistaJuego.setNumeroHoyo(1);
+				this.vistaJuego.setVisible(false);
+			}
+			//Escondemos el dialogo
+			this.vistaJuego.dlgMensaje.setVisible(false);
 		}
 	}
 
@@ -265,7 +320,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 		// Click en el mazo
 		else if ((x >= 590) && (x <= 671) && (y >= 350) && (y <= 461) && isCartaTemporalActive == false && darVueltaTodo == false)
 		{
-			if (mazo.size() > 1)
+			if (mazo.size() > 0)
 			{
 				// Guardamos en la variable cartaTemporal
 				cartaTemporal = mazo.get(mazo.size() - 1);
@@ -275,10 +330,11 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 				mazo.remove(mazo.size() - 1);
 
 				isCartaTemporalActive = true;
-			} else if (mazo.size() == 1) // Ultima carta del mazo:
+			} 
+			if (mazo.size() == 0) // Ultima carta del mazo:
 			{
-				// BARAJAR DE NUEVO Y QUITAR LAS CARTAS DEl J1, J2 y DESCARTE --> HACER METODO,
-				// pasando las cosas a quitar como parametro
+				//Cuando no queden cartas, rellenamos el mazo. Quitamos las cartas de los jugadores y la de descarte:
+				this.modelo.rellenarMazo(mazo, cartasJ1, cartasJ2, descarte);
 			}
 		}
 
@@ -835,20 +891,34 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 		}
 		
 		//Si todas las cartas estan boca arriba, calculamos el puntaje de la partida y mostramos un dialogo:
-		if(cartasBocaArribaJ1 == 6 & cartasBocaArribaJ2 == 6)
+		if(cartasBocaArribaJ1 == 6 && cartasBocaArribaJ2 == 6)
 		{
 			int puntosJ1 = this.modelo.totalJugador(cartasJ1);
 			int puntosJ2 = this.modelo.totalJugador(cartasJ2);
 			this.vistaJuego.lblPuntosJ1.setText("Puntos de " + this.vistaJuego.nombreJug1+ ": " + puntosJ1);
 			this.vistaJuego.lblPuntosJ2.setText("Puntos de " + this.vistaJuego.nombreJug2+ ": " + puntosJ2);
-			if(puntosJ1 < puntosJ2) {
-				this.vistaJuego.lblMensaje.setText("Ha ganado " + this.vistaJuego.nombreJug1);
-			}
-			else if(puntosJ1 > puntosJ2) {
-				this.vistaJuego.lblMensaje.setText("Ha ganado " + this.vistaJuego.nombreJug2);
-			}else {
-				this.vistaJuego.lblMensaje.setText("Ha sido un empate");
-			}
+			if(this.vistaJuego.hoyoNumero<3) {
+				if(puntosJ1 < puntosJ2) 
+				{
+					this.vistaJuego.lblMensaje.setText("En este hoyo ha ganado " + this.vistaJuego.nombreJug1);
+				}
+				else if(puntosJ1 > puntosJ2) {
+					this.vistaJuego.lblMensaje.setText("En este hoyo ha ganado " + this.vistaJuego.nombreJug2);
+				}else {
+					this.vistaJuego.lblMensaje.setText("Por ahora es empate...");
+				}
+				}
+				else if(this.vistaJuego.hoyoNumero == 3) 
+				{
+					if(puntosJ1 < puntosJ2) {
+						this.vistaJuego.lblMensaje.setText("Ha ganado " + this.vistaJuego.nombreJug1);
+					}
+					else if(puntosJ1 > puntosJ2) {
+						this.vistaJuego.lblMensaje.setText("Ha ganando " + this.vistaJuego.nombreJug2);
+					}else {
+						this.vistaJuego.lblMensaje.setText("Ha sido un empate");
+					}
+				}
 			this.vistaJuego.dlgMensaje.setVisible(true);
 		}
 	}
@@ -894,14 +964,25 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			this.vistaInicio.txaConsulta.selectAll();
 			this.vistaInicio.txaConsulta.setText("");
 			this.vistaInicio.ventanaRanking.setVisible(false);
-		} else if (this.vistaInicio.ventanaElegirNumeroJugadores.isVisible())
+		} 
+		else if (this.vistaInicio.ventanaElegirNumeroJugadores.isVisible())
 		{
 			this.vistaInicio.ventanaElegirNumeroJugadores.setVisible(false);
-		} else if (this.vistaInicio.ventanaInfoJugadores.isVisible())
+		} 
+		else if (this.vistaInicio.ventanaInfoJugadores.isVisible())
 		{
 			this.vistaInicio.ventanaInfoJugadores.setVisible(false);
 			this.vistaInicio.ventanaInfoJugadores.removeAll();
-		} else
+		} 
+		else if (this.vistaJuego.dlgMensaje.isVisible())
+		{
+			this.vistaJuego.dlgMensaje.setVisible(false);
+		} 
+		else if (this.vistaJuego.isVisible())
+		{
+			this.vistaJuego.setVisible(false);
+		} 
+		else
 		{
 			System.exit(0);
 		}

@@ -1,5 +1,6 @@
 package es.studium.golf;
 
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -36,8 +37,9 @@ public class VistaJuego extends Frame
 	
 	int imagenAmostrarDescarte = 0;
 	int imagenAmostrarTemporal = 0;
-	int puntosJugador1;
-	int puntosJugador2;
+	int puntosJugador1 = 0;
+	int puntosJugador2 = 0;
+	int hoyoNumero = 1; 
 	
 	//Posiciones de las cartas:
 	int posXDescarte = 497;
@@ -49,6 +51,7 @@ public class VistaJuego extends Frame
 	int posXCartasCentro = 531;
 	int posXCartasDerecha = 622;
 	
+	//Posición recuadro turno
 	int posXTurno = 280;
 	int posYTurno = 85;
 	int posXTurnoLetra = 295;
@@ -62,6 +65,7 @@ public class VistaJuego extends Frame
 	Label lblMensaje = new Label("");
 	Label lblPuntosJ1 = new Label("");
 	Label lblPuntosJ2 = new Label("Puntos de " + nombreJug2 + puntosJugador2);
+	Button btnContinuar = new Button("Continuar");
 	
 	public VistaJuego()
 	{
@@ -82,6 +86,7 @@ public class VistaJuego extends Frame
 		dlgMensaje.add(lblMensaje);
 		dlgMensaje.add(lblPuntosJ1);
 		dlgMensaje.add(lblPuntosJ2);
+		dlgMensaje.add(btnContinuar);
 	}
 	
 	public void paint(Graphics g)
@@ -110,6 +115,18 @@ public class VistaJuego extends Frame
 		Font fuenteTurno = new Font("Segoe UI", Font.BOLD, 15);
 		g.setFont(fuenteTurno);
 		g.drawString("Tu Turno", posXTurnoLetra, posYTurnoLetra);
+		
+		//Tablero de la partida:
+		Color colorTablero = new Color(170,59,67,250);
+		g.setColor(colorTablero);
+		g.fillRect(25, 50, 175, 100);
+		g.setColor(Color.black);
+		g.drawRect(25, 50, 175, 100);
+		g.setFont(fuente);
+		g.drawString("Hoyo Nº" + hoyoNumero, 70 , 70 );
+		g.setFont(fuenteTurno);
+		g.drawString(nombreJug1 + ":\t\t " + puntosJugador1 + " pts", 35 , 95 );
+		g.drawString(nombreJug2 + ":\t\t " + puntosJugador2 + " pts", 35 , 115 );
 		
 		//Para dibujar las cartas que cambian de valor usaremos bucles 'switch'. 
 		//Un bucle por cada carta a mostrar --> Mazo descarte + Carta temporal + (6 x jugador) --> 14.
@@ -2517,12 +2534,16 @@ public class VistaJuego extends Frame
 	//==Método para modificar los puntos==
 	public void setPuntosJugador1(int puntos)
 	{
-		puntosJugador1 = puntos;
+		puntosJugador1 += puntos;
 		repaint();
 	}
 	public void setPuntosJugador2(int puntos)
 	{
-		puntosJugador2 = puntos;
+		puntosJugador2 += puntos;
+		repaint();
+	}
+	public void setNumeroHoyo(int hoyo) {
+		hoyoNumero = hoyo;
 		repaint();
 	}
 	public void resetearContadores()
@@ -2548,5 +2569,6 @@ public class VistaJuego extends Frame
 		}
 		repaint();
 	}
+	
 }
 

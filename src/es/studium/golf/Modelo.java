@@ -37,6 +37,27 @@ public class Modelo
 		}
 	}
 	
+	//Método para rellenar el mazo. Quitamos las cartas del J2, las del J2 y la de descarte:
+	public void rellenarMazo(ArrayList<Integer> mazo, ArrayList<Integer> cartasJ1, ArrayList<Integer> cartasJ2, int descarte) {
+		for(int i = 0; i < 52; i++)
+		{
+			mazo.add(i+1);
+		}
+		rebarajar(mazo);
+		rebarajar(mazo);
+		rebarajar(mazo);
+		for(int i=0; i<6; i++)
+		{
+			mazo.remove(cartasJ1.get(i));
+		}
+		for(int i=0; i<6; i++)
+		{
+			mazo.remove(cartasJ2.get(i));
+		}
+		mazo.remove(descarte);
+		
+	}
+	
 	//Repartimos 6 cartas a cada jugador y eliminamos dichas cartas del mazo
 	public void repartir(ArrayList<Integer> mazo, ArrayList<Integer> cartasJ1, ArrayList<Integer> cartasJ2) {
 		for(int i=0; i<6; i++)
@@ -267,78 +288,78 @@ public class Modelo
 	}
 	
 	//===============================
-	//=========BD Puntajes===========
-	//===============================
-	
-	// Método conectar BD
-	public Connection conectar()
-	{
-		Connection c = null;
-		String driver = "com.mysql.cj.jdbc.Driver";
-		String url = "jdbc:mysql://localhost:3306/juegogolf?serverTimezone=UTC";
-		String login = "root";
-		String password = "Lu1994Juli1993";
-		try
+		//=========BD Puntajes===========
+		//===============================
+		
+		// Método conectar BD
+		public Connection conectar()
 		{
-			//Cargar los controladores para el acceso a la BD
-			Class.forName(driver);
-			//Establecer la conexión con la BD clientes
-			c = DriverManager.getConnection(url, login, password);
-		}
-		catch (ClassNotFoundException cnfe)
-		{
-			System.out.println("Error 1-"+cnfe.getMessage());
-		}
-		catch (SQLException sqle)
-		{
-			System.out.println("Error 2-"+sqle.getMessage());
-		}
-		return (c);
-	}
-
-	// Método desconectar BD
-	public void cerrar(Connection conexion)
-	{
-		try
-		{
-			if(conexion!=null)
+			Connection c = null;
+			String driver = "com.mysql.cj.jdbc.Driver";
+			String url = "jdbc:mysql://localhost:3306/juegogolf?serverTimezone=UTC";
+			String login = "root";
+			String password = "Lu1994Juli1993";
+			try
 			{
-				conexion.close();
+				//Cargar los controladores para el acceso a la BD
+				Class.forName(driver);
+				//Establecer la conexión con la BD clientes
+				c = DriverManager.getConnection(url, login, password);
+			}
+			catch (ClassNotFoundException cnfe)
+			{
+				System.out.println("Error 1-"+cnfe.getMessage());
+			}
+			catch (SQLException sqle)
+			{
+				System.out.println("Error 2-"+sqle.getMessage());
+			}
+			return (c);
+		}
+
+		// Método desconectar BD
+		public void cerrar(Connection conexion)
+		{
+			try
+			{
+				if(conexion!=null)
+				{
+					conexion.close();
+				}
+			}
+			catch (SQLException error)
+			{
+				System.out.println("Error 3-"+error.getMessage());
 			}
 		}
-		catch (SQLException error)
-		{
-			System.out.println("Error 3-"+error.getMessage());
-		}
-	}
 
-	// Método obtener datos BD
-	public String consulta(Connection conexion)
-	{
-		String datos = "";
-		Statement statement = null;
-		ResultSet rs = null;
-		String sentencia = "SELECT * FROM jugadores";
-		try
+		// Método obtener datos BD
+		public String consulta(Connection conexion)
 		{
-			//Crear una sentencia
-			statement = conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-					ResultSet.CONCUR_READ_ONLY);
-			//Crear un objeto ResultSet para guardar lo obtenido
-			//y ejecutar la sentencia SQL
-			rs = statement.executeQuery(sentencia);
-			while(rs.next())
+			String datos = "";
+			Statement statement = null;
+			ResultSet rs = null;
+			String sentencia = "SELECT * FROM jugadores";
+			try
 			{
-				datos = datos + rs.getInt("idJugador") + "\t" + "\t";
-				datos = datos + rs.getString("nombreJugador")+ "\t\t";
-				datos = datos + rs.getInt("puntosJugador") + "\n";
+				//Crear una sentencia
+				statement = conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);
+				//Crear un objeto ResultSet para guardar lo obtenido
+				//y ejecutar la sentencia SQL
+				rs = statement.executeQuery(sentencia);
+				while(rs.next())
+				{
+					datos = datos + rs.getInt("idJugador") + "\t" + "\t";
+					datos = datos + rs.getString("nombreJugador")+ "\t\t";
+					datos = datos + rs.getInt("puntosJugador") + "\n";
+				}
 			}
+			catch (SQLException error)
+			{
+				System.out.println("Error 4-"+error.getMessage());
+			}
+			return (datos);
 		}
-		catch (SQLException error)
-		{
-			System.out.println("Error 4-"+error.getMessage());
-		}
-		return (datos);
-	}
 	
 }
