@@ -80,7 +80,7 @@ public class VistaJuego extends Frame
 		this.setVisible(false);
 		
 		dlgMensaje.setLayout(new FlowLayout());
-		dlgMensaje.setSize(200,150);
+		dlgMensaje.setSize(220,150);
 		dlgMensaje.setLocationRelativeTo(null);
 		dlgMensaje.setResizable(false);
 		dlgMensaje.add(lblMensaje);
@@ -117,8 +117,7 @@ public class VistaJuego extends Frame
 		g.drawString("Tu Turno", posXTurnoLetra, posYTurnoLetra);
 		
 		//Tablero de la partida:
-		Color colorTablero = new Color(170,59,67,250);
-		g.setColor(colorTablero);
+		g.setColor(colorRec);
 		g.fillRect(25, 50, 175, 100);
 		g.setColor(Color.black);
 		g.drawRect(25, 50, 175, 100);
@@ -127,6 +126,20 @@ public class VistaJuego extends Frame
 		g.setFont(fuenteTurno);
 		g.drawString(nombreJug1 + ":\t\t " + puntosJugador1 + " pts", 35 , 95 );
 		g.drawString(nombreJug2 + ":\t\t " + puntosJugador2 + " pts", 35 , 115 );
+		
+		//Titulo Descarte y Mazo
+		g.setColor(Color.white);
+		g.drawString("Descarte", 510 , 480 );
+		g.drawString("Mazo", 615 , 480 );
+		
+		//Finalizar partida
+		Color colorTablero = new Color(170,59,67,250);
+		g.setColor(colorTablero);
+		g.fillRect(1040, 755, 140, 30);
+		g.setColor(Color.black);
+		g.drawRect(1040, 755, 140, 30);
+		g.setFont(fuenteTurno);
+		g.drawString("Finalizar Partida", 1050 , 775 );
 		
 		//Para dibujar las cartas que cambian de valor usaremos bucles 'switch'. 
 		//Un bucle por cada carta a mostrar --> Mazo descarte + Carta temporal + (6 x jugador) --> 14.
@@ -2546,12 +2559,13 @@ public class VistaJuego extends Frame
 		hoyoNumero = hoyo;
 		repaint();
 	}
-	public void resetearContadores()
+	public void resetearPuntos()
 	{
 		puntosJugador1 = 0;
 		puntosJugador2 = 0;
 		repaint();
 	}
+	
 	
 	//Método Posición Cartel que indica Turno toma 1 o 2: si es uno hace tal si es 2 hace cual
 	public void cambiarPosicionRecuadroTurno(int turno) {

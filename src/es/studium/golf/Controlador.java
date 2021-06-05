@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -21,19 +22,20 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 	ArrayList<Integer> mazo = new ArrayList<Integer>(); // Mazo de cartas
 	ArrayList<Integer> cartasJ1 = new ArrayList<Integer>(); // Cartas del Jugador 1
 	ArrayList<Integer> cartasJ2 = new ArrayList<Integer>(); // Cartas del Jugador2
-	boolean estanCartasJ1BocaArriba[] =
-	{ false, false, false, false, false, false };
-	boolean estanCartasJ2BocaArriba[] =
-	{ false, false, false, false, false, false };
+	boolean estanCartasJ1BocaArriba[] = { false, false, false, false, false, false };
+	boolean estanCartasJ2BocaArriba[] = { false, false, false, false, false, false };
 
 	int numeroJugadores = 0;
 	int turno = 1;
 	boolean isCartaTemporalActive = false;
 	int cartaTemporal;
 	int descarte;
-	int cartasBocaArribaJ1;
-	int cartasBocaArribaJ2;
+	int cartasBocaArribaJ1; // Cuenta cuantos 'true' tiene el array estanCartasJ1BocaArriba[]
+	int cartasBocaArribaJ2; // Cuenta cuantos 'true' tiene el array estanCartasJ2BocaArriba[]
 	boolean darVueltaTodo = false;
+	
+	String ganador; //Para insertar en la BD
+	int puntosGanador; //Para insertar en la BD
 
 	public Controlador(VistaInicio vi, VistaJuego vj, Modelo m)
 	{
@@ -45,6 +47,8 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 		this.vistaInicio.ventana.addWindowListener(this);
 		this.vistaInicio.btnPuntajes.addActionListener(this);
 		this.vistaInicio.btnNuevaPartida.addActionListener(this);
+		this.vistaInicio.btnAyuda.addActionListener(this);
+		this.vistaInicio.btnSalir.addActionListener(this);
 
 		this.vistaInicio.ventanaRanking.addWindowListener(this);
 		this.vistaInicio.btnVolverPuntajes.addActionListener(this);
@@ -90,16 +94,35 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			this.vistaInicio.txaConsulta.append(informacion);
 			// Cerrar la conexión
 			this.modelo.cerrar(conexion);
-		} else if (vistaInicio.btnVolverPuntajes.equals(evento.getSource()))
+		} 
+		else if (vistaInicio.btnVolverPuntajes.equals(evento.getSource()))
 		{
 			this.vistaInicio.txaConsulta.selectAll();
 			this.vistaInicio.txaConsulta.setText("");
 			this.vistaInicio.ventanaRanking.setVisible(false);
-		} else if (vistaInicio.btnNuevaPartida.equals(evento.getSource()))
+		} 
+		else if(vistaInicio.btnAyuda.equals(evento.getSource()))
+		{
+			//Manual de Usuario
+			try
+			{
+			Runtime.getRuntime().exec("hh.exe ManualUsuarioJuego.chm");
+			}
+			catch (IOException e)
+			{
+			e.printStackTrace();
+			}
+
+		}
+		else if(vistaInicio.btnSalir.equals(evento.getSource())) {
+			System.exit(0);
+		}
+		else if (vistaInicio.btnNuevaPartida.equals(evento.getSource()))
 		{
 			this.vistaInicio.ventanaElegirNumeroJugadores.removeAll();
 			this.vistaInicio.VentanaElegirNumeroJugadores();
-		} else if (vistaInicio.btnContinuar.equals(evento.getSource()))
+		} 
+		else if (vistaInicio.btnContinuar.equals(evento.getSource()))
 		{
 			if (this.vistaInicio.choJugadores.getSelectedItem().equals("Dos Jugadores"))
 			{
@@ -114,7 +137,8 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 				numeroJugadores = 4;
 				this.vistaInicio.VentanaInfoCuatroJugadores();
 			}
-		} else if (vistaInicio.btnComenzarPartida.equals(evento.getSource()))
+		} 
+		else if (vistaInicio.btnComenzarPartida.equals(evento.getSource()))
 		{
 			this.vistaInicio.ventana.setVisible(false);
 			this.vistaInicio.ventanaElegirNumeroJugadores.setVisible(false);
@@ -126,15 +150,20 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 				this.vistaJuego.nombreJug2 = this.vistaInicio.txtJugador2.getText();
 			}
 		}
-		else if(this.vistaJuego.btnContinuar.equals(evento.getSource())) 
+		else if(this.vistaJuego.btnContinuar.equals(evento.getSource())) //Dentro del dialogo que aparece al terminar un hoyo
 		{
 			this.vistaJuego.setPuntosJugador1(this.modelo.totalJugador(cartasJ1));
 		 	this.vistaJuego.setPuntosJugador2(this.modelo.totalJugador(cartasJ2));
+		 	//Reseteo de valores para el siguiente Hoyo
+		 	mazo.clear();
+		 	cartasJ1.clear();
+		 	cartasJ2.clear();
 			this.modelo.barajar(mazo);
 			this.modelo.repartir(mazo, cartasJ1, cartasJ2);
 			descarte = this.modelo.agregarDescarte(mazo, descarte);
 			this.vistaJuego.mostrarCartaDescarte(descarte);
 			turno = 1;
+			this.vistaJuego.cambiarPosicionRecuadroTurno(1);
 			isCartaTemporalActive = false;
 			cartaTemporal = 0;
 			for (int i = 0; i < estanCartasJ1BocaArriba.length; i++) 
@@ -142,7 +171,6 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 				estanCartasJ1BocaArriba[i] = false;
 			}
 			cartasBocaArribaJ1 = 0;
-			System.out.println("Cantidad cartas boca arriba J1: "+cartasBocaArribaJ1);
 			for (int i = 0; i < estanCartasJ2BocaArriba.length; i++) 
 			{
 				estanCartasJ2BocaArriba[i] = false;
@@ -171,10 +199,21 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			{
 				this.vistaJuego.setNumeroHoyo(3);
 			}
-			else if(this.vistaJuego.hoyoNumero == 3)
+			else if(this.vistaJuego.hoyoNumero == 3)//Termina el juego
 			{
+				// Conectar BD para cargar puntos del ganador
+				conexion = this.modelo.conectar();
+				this.modelo.insertarDatos(conexion, ganador, puntosGanador);
+				// Cerrar la conexión
+				this.modelo.cerrar(conexion);
+				//Reseteos extra para Nueva Partida
 				this.vistaJuego.setNumeroHoyo(1);
+				this.vistaInicio.txtJugador1.setText("");
+				this.vistaInicio.txtJugador2.setText("");
+				this.vistaJuego.resetearPuntos();
+				this.vistaJuego.dlgMensaje.setVisible(false);
 				this.vistaJuego.setVisible(false);
+				this.vistaInicio.ventana.setVisible(true);
 			}
 			//Escondemos el dialogo
 			this.vistaJuego.dlgMensaje.setVisible(false);
@@ -890,13 +929,62 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			cartasBocaArribaJ2 = this.modelo.actualizarCartasBocaArriba(estanCartasJ2BocaArriba);
 		}
 		
+		//Click en "Finalizar Partida"
+		else if((x >= 1040) && (x <= 1180) && (y >= 755) && (y <= 785)) 
+		{
+			//Reseteo de valores
+		 	mazo.clear();
+		 	cartasJ1.clear();
+		 	cartasJ2.clear();
+			this.modelo.barajar(mazo);
+			this.modelo.repartir(mazo, cartasJ1, cartasJ2);
+			descarte = this.modelo.agregarDescarte(mazo, descarte);
+			this.vistaJuego.mostrarCartaDescarte(descarte);
+			turno = 1;
+			this.vistaJuego.cambiarPosicionRecuadroTurno(1);
+			isCartaTemporalActive = false;
+			cartaTemporal = 0;
+			for (int i = 0; i < estanCartasJ1BocaArriba.length; i++) 
+			{
+				estanCartasJ1BocaArriba[i] = false;
+			}
+			cartasBocaArribaJ1 = 0;
+			for (int i = 0; i < estanCartasJ2BocaArriba.length; i++) 
+			{
+				estanCartasJ2BocaArriba[i] = false;
+			}
+			cartasBocaArribaJ2 = 0;
+			darVueltaTodo = false;
+			//Mostramos el reverso de las cartas
+			this.vistaJuego.mostrarCartaJug1Pos00(0);
+			this.vistaJuego.mostrarCartaJug1Pos01(0);
+			this.vistaJuego.mostrarCartaJug1Pos02(0);
+			this.vistaJuego.mostrarCartaJug1Pos10(0);
+			this.vistaJuego.mostrarCartaJug1Pos11(0);
+			this.vistaJuego.mostrarCartaJug1Pos12(0);
+			this.vistaJuego.mostrarCartaJug2Pos00(0);
+			this.vistaJuego.mostrarCartaJug2Pos01(0);
+			this.vistaJuego.mostrarCartaJug2Pos02(0);
+			this.vistaJuego.mostrarCartaJug2Pos10(0);
+			this.vistaJuego.mostrarCartaJug2Pos11(0);
+			this.vistaJuego.mostrarCartaJug2Pos12(0);
+			this.vistaJuego.mostrarCartaTemporal(0);
+			//Modificamos el número del Hoyo
+			this.vistaJuego.setNumeroHoyo(1);
+			this.vistaInicio.txtJugador1.setText("");
+			this.vistaInicio.txtJugador2.setText("");
+			this.vistaJuego.resetearPuntos();
+			this.vistaJuego.setVisible(false);
+			this.vistaInicio.ventana.setVisible(true);
+		}
+		
 		//Si todas las cartas estan boca arriba, calculamos el puntaje de la partida y mostramos un dialogo:
 		if(cartasBocaArribaJ1 == 6 && cartasBocaArribaJ2 == 6)
 		{
 			int puntosJ1 = this.modelo.totalJugador(cartasJ1);
 			int puntosJ2 = this.modelo.totalJugador(cartasJ2);
-			this.vistaJuego.lblPuntosJ1.setText("Puntos de " + this.vistaJuego.nombreJug1+ ": " + puntosJ1);
-			this.vistaJuego.lblPuntosJ2.setText("Puntos de " + this.vistaJuego.nombreJug2+ ": " + puntosJ2);
+			this.vistaJuego.lblPuntosJ1.setText(this.vistaJuego.nombreJug1+ " ha obtenido:     " + puntosJ1 + " puntos");
+			this.vistaJuego.lblPuntosJ2.setText(this.vistaJuego.nombreJug2+ " ha obtenido:     " + puntosJ2 + " puntos");
 			if(this.vistaJuego.hoyoNumero<3) {
 				if(puntosJ1 < puntosJ2) 
 				{
@@ -910,10 +998,18 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 				}
 				else if(this.vistaJuego.hoyoNumero == 3) 
 				{
+					this.vistaJuego.setPuntosJugador1(this.modelo.totalJugador(cartasJ1));
+				 	this.vistaJuego.setPuntosJugador2(this.modelo.totalJugador(cartasJ2));
+					this.vistaJuego.lblPuntosJ1.setText(this.vistaJuego.nombreJug1+ " ha obtenido:     " + this.vistaJuego.puntosJugador1 + " puntos");
+					this.vistaJuego.lblPuntosJ2.setText(this.vistaJuego.nombreJug2+ " ha obtenido:     " + this.vistaJuego.puntosJugador2 + " puntos");
 					if(puntosJ1 < puntosJ2) {
-						this.vistaJuego.lblMensaje.setText("Ha ganado " + this.vistaJuego.nombreJug1);
+						ganador = this.vistaJuego.nombreJug1;
+						puntosGanador = this.vistaJuego.puntosJugador1;
+						this.vistaJuego.lblMensaje.setText("Ha ganado " + ganador);
 					}
 					else if(puntosJ1 > puntosJ2) {
+						ganador = this.vistaJuego.nombreJug2;
+						puntosGanador = this.vistaJuego.puntosJugador2;
 						this.vistaJuego.lblMensaje.setText("Ha ganando " + this.vistaJuego.nombreJug2);
 					}else {
 						this.vistaJuego.lblMensaje.setText("Ha sido un empate");
@@ -924,37 +1020,25 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0)
-	{
-	}
+	public void mouseEntered(MouseEvent arg0){}
 
 	@Override
-	public void mouseExited(MouseEvent arg0)
-	{
-	}
+	public void mouseExited(MouseEvent arg0){}
 
 	@Override
-	public void mousePressed(MouseEvent arg0)
-	{
-	}
+	public void mousePressed(MouseEvent arg0){}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0)
-	{
-	}
+	public void mouseReleased(MouseEvent arg0){}
 
 	// =============================
 	// == Window Listener Methods ==
 	// =============================
 	@Override
-	public void windowActivated(WindowEvent arg0)
-	{
-	}
+	public void windowActivated(WindowEvent arg0){}
 
 	@Override
-	public void windowClosed(WindowEvent arg0)
-	{
-	}
+	public void windowClosed(WindowEvent arg0){}
 
 	@Override
 	public void windowClosing(WindowEvent arg0)
@@ -989,23 +1073,15 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 	}
 
 	@Override
-	public void windowDeactivated(WindowEvent arg0)
-	{
-	}
+	public void windowDeactivated(WindowEvent arg0){}
 
 	@Override
-	public void windowDeiconified(WindowEvent arg0)
-	{
-	}
+	public void windowDeiconified(WindowEvent arg0){}
 
 	@Override
-	public void windowIconified(WindowEvent arg0)
-	{
-	}
+	public void windowIconified(WindowEvent arg0){}
 
 	@Override
-	public void windowOpened(WindowEvent arg0)
-	{
-	}
+	public void windowOpened(WindowEvent arg0){}
 
 }

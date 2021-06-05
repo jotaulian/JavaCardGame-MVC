@@ -12,6 +12,7 @@ import java.awt.TextField;
 
 public class VistaInicio
 {
+	//Componentes
 	Frame ventana = new Frame("Golf de Seis Cartas");
 	
 	Panel pnlP1 = new Panel();
@@ -30,7 +31,7 @@ public class VistaInicio
 	
 	// Componentes para MostrarRanking()
 	Frame ventanaRanking = new Frame("Golf: Ranking");
-	TextArea txaConsulta = new TextArea(20,40);
+	TextArea txaConsulta = new TextArea(15,40);
 	Button btnVolverPuntajes = new Button("Volver");
 
 	// Componentes para VentanaElegirNumeroJugadores()
@@ -81,7 +82,7 @@ public class VistaInicio
 	 public void MostrarRanking()
 		{
 			ventanaRanking.setLayout(new FlowLayout());
-			ventanaRanking.setSize(400,400);
+			ventanaRanking.setSize(400,320);
 			txaConsulta.append("#ID\t\tNombre\t\tPuntos\n");
 			ventanaRanking.add(txaConsulta);
 			ventanaRanking.add(btnVolverPuntajes);

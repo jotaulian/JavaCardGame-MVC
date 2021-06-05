@@ -37,7 +37,7 @@ public class Modelo
 		}
 	}
 	
-	//Método para rellenar el mazo. Quitamos las cartas del J2, las del J2 y la de descarte:
+	//Método para rellenar el mazo cuando hayamos levantado todas las cartas. Quitamos las cartas del J2, las del J2 y la de descarte:
 	public void rellenarMazo(ArrayList<Integer> mazo, ArrayList<Integer> cartasJ1, ArrayList<Integer> cartasJ2, int descarte) {
 		for(int i = 0; i < 52; i++)
 		{
@@ -55,7 +55,6 @@ public class Modelo
 			mazo.remove(cartasJ2.get(i));
 		}
 		mazo.remove(descarte);
-		
 	}
 	
 	//Repartimos 6 cartas a cada jugador y eliminamos dichas cartas del mazo
@@ -288,8 +287,8 @@ public class Modelo
 	}
 	
 	//===============================
-		//=========BD Puntajes===========
-		//===============================
+	//=========BD Puntajes===========
+	//===============================
 		
 		// Método conectar BD
 		public Connection conectar()
@@ -339,7 +338,7 @@ public class Modelo
 			String datos = "";
 			Statement statement = null;
 			ResultSet rs = null;
-			String sentencia = "SELECT * FROM jugadores";
+			String sentencia = "SELECT * FROM jugadores ORDER BY 3 LIMIT 10";
 			try
 			{
 				//Crear una sentencia
@@ -360,6 +359,27 @@ public class Modelo
 				System.out.println("Error 4-"+error.getMessage());
 			}
 			return (datos);
+		}
+		
+		//Método insertar datos BD
+		public void insertarDatos(Connection conexion, String nombreGanador, int puntosGanador)
+		{
+			Statement statement = null;
+			String sentencia = "INSERT INTO jugadores VALUES(null, '" 
+								+ nombreGanador +"',"
+								+ puntosGanador + ")";
+			try
+			{
+				//Crear una sentencia
+				statement = conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);
+				statement.executeUpdate(sentencia);
+			}
+			catch (SQLException error)
+			{
+				System.out.println("Error 5-"+error.getMessage());
+			}
+			
 		}
 	
 }
